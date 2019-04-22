@@ -1,0 +1,10 @@
+/*
+  可解析：
+    require('my_module')
+  报警告：
+    require('my_module', xx)
+*/
+
+import { Test } from '../type'
+
+export const test: Test = (node, s) => {}
