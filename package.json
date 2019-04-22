@@ -1,6 +1,6 @@
 {
   "name": "@mora/module-parse",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "parse export import statement",
   "main": "dist/index.js",
   "scripts": {
