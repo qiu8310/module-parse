@@ -18,7 +18,7 @@ export const test: Test = (node, s) => {
   ) {
     const arg = node.init.arguments[0]
     if (node.init.arguments.length === 1 && arg.type === s.Literal) {
-      return { type: NODE_TYPE.REQUIRE_ASIGN, src: arg.value as string, variable: node.id.name }
+      return { type: NODE_TYPE.REQUIRE_ASSIGN, src: arg.value as string, variable: node.id.name }
     } else {
       return false
     }

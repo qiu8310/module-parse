@@ -13,7 +13,7 @@ export enum NODE_TYPE {
    * let fs = require('my_module')
    * var fs = require('my_module')
    */
-  REQUIRE_ASIGN,
+  REQUIRE_ASSIGN,
   /** const { stat, exists, readFile } = require('my_module') */
   REQUIRE_DESTRUCT,
   /**
@@ -99,7 +99,7 @@ export namespace type {
     }
     /** const variable = require('my_module') */
     export interface RequireAssignNode {
-      type: NODE_TYPE.REQUIRE_ASIGN
+      type: NODE_TYPE.REQUIRE_ASSIGN
       src: string
       variable: string
     }
