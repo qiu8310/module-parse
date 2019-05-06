@@ -38,6 +38,7 @@ export const test: Test = (node, s) => {
         if (it.type === s.ImportDefaultSpecifier) {
           if (it.local.type === s.Identifier) {
             importDefault = it.local.name
+            variables.push({ imported: 'default', local: it.local.name })
           } else {
             warning = true
           }
