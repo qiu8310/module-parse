@@ -12,11 +12,11 @@ import { Test, NODE_TYPE } from '../type'
 
 export const test: Test = (node, s) => {
   if (node.type === s.ExportNamedDeclaration) {
-    const variables: string[] = []
+    const variables: ({ exported: string; local: string })[] = []
     let warning = false
     node.specifiers.forEach(it => {
       if (it.type === s.ExportSpecifier && it.exported.type === s.Identifier && it.local.type === s.Identifier) {
-        variables.push(`${it.local.name}:${it.exported.name}`)
+        variables.push({ exported: it.exported.name, local: it.local.name })
       } else {
         warning = true
       }

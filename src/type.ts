@@ -9,18 +9,18 @@ export enum NODE_TYPE {
    */
   REQUIRE_ONLY,
   /**
-   * const fs = require('my_module')
-   * let fs = require('my_module')
-   * var fs = require('my_module')
+   * * const fs = require('my_module')
+   * * let fs = require('my_module')
+   * * var fs = require('my_module')
    */
   REQUIRE_ASSIGN,
   /** const { stat, exists, readFile } = require('my_module') */
   REQUIRE_DESTRUCT,
   /**
-   * module.exports = 42
-   * module.exports = variable
-   * module.exports = function() {}
-   * module.exports = function test() {}
+   * * module.exports = 42
+   * * module.exports = variable
+   * * module.exports = function() {}
+   * * module.exports = function test() {}
    */
   EXPORTS_DEFAULT,
   /**
@@ -42,24 +42,24 @@ export enum NODE_TYPE {
   IMPORT_ALL,
 
   /**
-   * import fs from 'my_module'
-   * import { stat, exists, readFile } from 'my_module'
-   * import { a as b } from 'my_module'
-   * import _, { each, forEach } from 'lodash'
+   * * import fs from 'my_module'
+   * * import { stat, exists, readFile } from 'my_module'
+   * * import { a as b } from 'my_module'
+   * * import _, { each, forEach } from 'lodash'
    */
   IMPORT_NAMED,
 
   /**
-   * export default 42
-   * export default variable
-   * export default function() {}
-   * export default function test() {}
+   * * export default 42
+   * * export default variable
+   * * export default function() {}
+   * * export default function test() {}
    */
 
   EXPORT_DEFAULT,
   /**
-   * export {A, B}
-   * export {A as AA, B}
+   * * export {A, B}
+   * * export {A as AA, B}
    */
   EXPORT_NAMED,
 
@@ -67,9 +67,9 @@ export enum NODE_TYPE {
   EXPORT_ALL_FROM,
 
   /**
-   * export { default } from 'foo'
-   * export { foo, bar } from 'my_module'
-   * export { es6 as default } from './someModule'
+   * * export { default } from 'foo'
+   * * export { foo, bar } from 'my_module'
+   * * export { es6 as default } from './someModule'
    */
   EXPORT_NAMED_FROM
 }
@@ -103,24 +103,24 @@ export namespace type {
       src: string
       variable: string
     }
-    /** const { stat: aliasfn, exists, readFile } = require('my_module') */
+    /** const { stat: aliasFn, exists, readFile } = require('my_module') */
     export interface RequireDestructNode {
       type: NODE_TYPE.REQUIRE_DESTRUCT
       src: string
-      variables: string[]
+      variables: ({ imported: string; local: string })[]
     }
 
     /**
-     * module.exports = 42
-     * module.exports = variable
-     * module.exports = function() {}
+     * * module.exports = 42
+     * * module.exports = variable
+     * * module.exports = function() {}
      */
     export interface ExportsDefaultNode {
       type: NODE_TYPE.EXPORTS_DEFAULT
     }
     /**
-     * exports.a = xx
-     * module.exports.a = xx
+     * * exports.a = xx
+     * * module.exports.a = xx
      */
     export interface ExportsVariableNode {
       type: NODE_TYPE.EXPORTS_VARIABLE
@@ -146,35 +146,37 @@ export namespace type {
     export interface ImportAllNode {
       type: NODE_TYPE.IMPORT_ALL
       variable: string
+      src: string
     }
     /**
-     * import fs from 'my_module'
-     * import { stat, exists, readFile } from 'my_module'
-     * import { a as b } from 'my_module'
-     * import _, { each, forEach } from 'lodash'
+     * * import fs from 'my_module'
+     * * import { stat, exists, readFile } from 'my_module'
+     * * import { a as b } from 'my_module'
+     * * import _, { each, forEach } from 'lodash'
      */
     export interface ImportNamedNode {
       type: NODE_TYPE.IMPORT_NAMED
       default: string
-      variables: string[]
+      variables: ({ imported: string; local: string })[]
+      src: string
     }
 
     /**
-     * export default 42
-     * export default variable
-     * export default function() {}
+     * * export default 42
+     * * export default variable
+     * * export default function() {}
      */
     export interface ExportDefaultNode {
       type: NODE_TYPE.EXPORT_DEFAULT
     }
 
     /**
-     * export {A, B}
-     * export {A as AA, B}
+     * * export {A, B}
+     * * export {A as AA, B}
      */
     export interface ExportNamedNode {
       type: NODE_TYPE.EXPORT_NAMED
-      variables: string[]
+      variables: ({ exported: string; local: string })[]
     }
 
     /** export * from './a' */
@@ -183,13 +185,13 @@ export namespace type {
       src: string
     }
     /**
-     * export { default } from 'foo'
-     * export { foo, bar } from 'my_module'
-     * export { es6 as default } from './someModule'
+     * * export { default } from 'foo'
+     * * export { foo, bar } from 'my_module'
+     * * export { es6 as default } from './someModule'
      */
     export interface ExportNamedFromNode {
       type: NODE_TYPE.EXPORT_NAMED_FROM
-      variables: string[]
+      variables: ({ exported: string; local: string })[]
       src: string
     }
   }

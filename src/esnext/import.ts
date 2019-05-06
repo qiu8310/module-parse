@@ -32,7 +32,7 @@ export const test: Test = (node, s) => {
       // import { a as b } from 'my_module'
       // import _, { each, forEach } from 'lodash'
       let importDefault = ''
-      let variables: string[] = []
+      let variables: ({ imported: string; local: string })[] = []
       let warning = false
       specifiers.forEach(it => {
         if (it.type === s.ImportDefaultSpecifier) {
@@ -43,7 +43,7 @@ export const test: Test = (node, s) => {
           }
         } else if (it.type === s.ImportSpecifier) {
           if (it.local.type === s.Identifier && it.imported.type === s.Identifier) {
-            variables.push(`${it.imported.name}:${it.local.name}`)
+            variables.push({ imported: it.imported.name, local: it.local.name })
           } else {
             warning = true
           }

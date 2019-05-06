@@ -4,7 +4,7 @@ import * as esprima from 'esprima'
 import * as estraverse from 'estraverse'
 import { type, Test, VisitNode, NODE_TYPE } from './type'
 
-export { NODE_TYPE }
+export { NODE_TYPE, type }
 
 export function parse(
   code: string,
