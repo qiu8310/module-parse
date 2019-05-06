@@ -10,6 +10,6 @@ import { Test, NODE_TYPE } from '../type'
 
 export const test: Test = (node, s) => {
   if (node.type === s.ExportDefaultDeclaration) {
-    return { type: NODE_TYPE.EXPORTS_DEFAULT }
+    return { type: NODE_TYPE.EXPORT_DEFAULT }
   }
 }
