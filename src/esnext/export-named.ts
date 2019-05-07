@@ -6,6 +6,8 @@
     export { default } from 'foo'
     export { foo, bar } from 'my_module'
     export { es6 as default } from './someModule'
+
+    export const C = 1
 */
 
 import { Test, NODE_TYPE } from '../type'
@@ -21,6 +23,27 @@ export const test: Test = (node, s) => {
         warning = true
       }
     })
+
+    // export const A = 1
+    // export function B() {}
+    // export class C {}
+    if (node.declaration) {
+      if (node.declaration.type === s.VariableDeclaration) {
+        for (const d of node.declaration.declarations) {
+          if (d.id.type === s.Identifier) {
+            if (d.init && d.init.type === s.Identifier) {
+              variables.push({ exported: d.id.name, local: d.init.name })
+            } else {
+              return { type: NODE_TYPE.EXPORT_ASSIGN, exported: d.id.name }
+            }
+          }
+        }
+      } else if (node.declaration.type === s.FunctionDeclaration || node.declaration.type === s.ClassDeclaration) {
+        if (node.declaration.id && node.declaration.id.type === s.Identifier) {
+          return { type: NODE_TYPE.EXPORT_ASSIGN, exported: node.declaration.id.name }
+        }
+      }
+    }
 
     if (warning) return false
 

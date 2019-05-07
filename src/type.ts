@@ -55,8 +55,13 @@ export enum NODE_TYPE {
    * * export default function() {}
    * * export default function test() {}
    */
-
   EXPORT_DEFAULT,
+
+  /**
+   * * export const A = 1
+   */
+  EXPORT_ASSIGN,
+
   /**
    * * export {A, B}
    * * export {A as AA, B}
@@ -134,6 +139,7 @@ export namespace type {
       | ImportNamedNode
       | ExportDefaultNode
       | ExportNamedNode
+      | ExportAssignNode
       | ExportAllFromNode
       | ExportNamedFromNode
     /** import 'my_module' */
@@ -173,10 +179,19 @@ export namespace type {
     /**
      * * export {A, B}
      * * export {A as AA, B}
+     * * export const A = B
      */
     export interface ExportNamedNode {
       type: NODE_TYPE.EXPORT_NAMED
       variables: ({ exported: string; local: string })[]
+    }
+
+    /**
+     * * export const A = 1
+     */
+    export interface ExportAssignNode {
+      type: NODE_TYPE.EXPORT_ASSIGN
+      exported: string
     }
 
     /** export * from './a' */
