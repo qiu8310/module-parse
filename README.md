@@ -59,6 +59,11 @@ export default variable
 export default function() {}
 export default function test() {}
 
+// EXPORT_ASSIGN
+export const A = 1
+export class A {}
+export function A() {}
+
 // EXPORT_NAMED
 export {A, B}
 export {A as AA, B}
